@@ -13,8 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    TODO HERE IF NOT HAS COMAPNY_ID SHOW HASH
                 </div>
             </div>
         </div>

@@ -5,4 +5,7 @@
 
 `docker-compose exec mysql mysql -prootpass time_recorder`
 
-`php artisan migrate`
+`php artisan migrate --seed`
+
+`php artisan migrate:rollback`
+

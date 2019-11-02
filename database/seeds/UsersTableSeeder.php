@@ -14,16 +14,24 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'admin_' . Str::random(10),
-            'email' => 'admin_' . Str::random(10) . '@gmail.com',
+            'name' => 'default_user_admin',
+            'email' => 'default_user_admin@gmail.com',
             'password' => bcrypt('password'),
             'link_hash' => Str::random(10),
-            'company_id' => null,
+            'company_id' => 1,
             'is_admin' => true
         ]);
         DB::table('users')->insert([
-            'name' => 'user_' . Str::random(10),
-            'email' => 'user_' . Str::random(10) . '@gmail.com',
+            'name' => 'default_user',
+            'email' => 'default_user@gmail.com',
+            'password' => bcrypt('password'),
+            'link_hash' => Str::random(10),
+            'company_id' => 1,
+            'is_admin' => false
+        ]);
+        DB::table('users')->insert([
+            'name' => 'default_user_orphan',
+            'email' => 'default_user_orphan@gmail.com',
             'password' => bcrypt('password'),
             'link_hash' => Str::random(10),
             'company_id' => null,

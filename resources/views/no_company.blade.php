@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    TODO HERE IF NOT HAS COMAPNY_ID SHOW HASH
+                    <p>They are not associated with any company yet. Your invitation hash is <b>{{ $linkHash }}</b>. Share with an admin so I can invite you.</p>
                 </div>
             </div>
         </div>

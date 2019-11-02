@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
+class TimeRecordController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,14 +26,6 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
-        if ($user['company'] === null) {
-            return view('no_company', ['linkHash' => $user['link_hash']]);
-        }
-
-        if ($user['is_admin']) {
-            return redirect()->route('my-team');
-        }
-
-        return redirect()->route('time-record');
+        return view('time_record', ['time_records' => null]);
     }
 }

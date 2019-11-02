@@ -13,3 +13,5 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/my-team', 'MyTeamController@index')->name('my-team');
+Route::get('/time-record', 'TimeRecordController@index')->name('time-record');

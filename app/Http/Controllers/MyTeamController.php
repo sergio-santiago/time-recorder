@@ -25,7 +25,10 @@ class MyTeamController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $companions = DB::table('users')
+            ->where('company_id', $user['company_id'])
+            ->get();
 
-        return view('my_team', ['team' => null]);
+        return view('my_team', ['team' => $companions]);
     }
 }

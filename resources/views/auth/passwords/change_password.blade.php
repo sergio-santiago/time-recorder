@@ -5,10 +5,13 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Change Password') }}</div>
+                    <div class="card-header">
+                        <a href="{{ route('home') }}"><i class="fa fa-home mr-1"></i></a>
+                        {{ __('Change Password') }}
+                    </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('render-change-password-form') }}">
+                        <form method="POST" action="{{ route('process-change-password-form') }}">
                             @csrf
 
                             <div class="form-group row">
@@ -62,7 +65,6 @@
                                     </button>
                                 </div>
                             </div>
-
 
                         </form>
                     </div>

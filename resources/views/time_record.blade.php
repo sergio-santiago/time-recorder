@@ -25,7 +25,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($timeRecords as $record)
+                            @forelse($timeRecords as $record)
                                 <tr>
                                     <td>{{\Carbon\Carbon::parse($record->init_time)->format('H:i:s')}}</td>
                                     <td>{{\Carbon\Carbon::parse($record->end_time)->format('H:i:s')}}</td>
@@ -34,7 +34,11 @@
                                         </a>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="3"><h4>No records yet</h4></td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>

@@ -7,5 +7,6 @@
 
 `php artisan migrate --seed`
 
-`php artisan migrate:rollback`
+`npm install`
 
+`npm run dev`

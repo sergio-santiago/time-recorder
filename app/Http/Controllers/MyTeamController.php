@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MyTeamController extends Controller
 {
@@ -27,6 +28,7 @@ class MyTeamController extends Controller
         $user = Auth::user();
         $companions = DB::table('users')
             ->where('company_id', $user['company_id'])
+
             ->get();
 
         return view('my_team', ['team' => $companions]);

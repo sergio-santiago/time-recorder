@@ -83,4 +83,31 @@ class MyTeamController extends Controller
 
         return redirect('my-team');
     }
+
+    public function processToogleRoleForm(Request $request)
+    {
+        $companyId = Auth::user()->company_id;
+
+        $user = DB::table('users')
+            ->where('id', $request->user_id)
+            ->first();
+
+        if (empty($user)) {
+            $request->session()->flash('alert-danger', 'User not exist!');
+            return redirect('my-team');
+        }
+
+        if ($user->company_id !== $companyId) {
+            $request->session()->flash('alert-danger', 'User does not belong to your company!');
+            return redirect('my-team');
+        }
+
+        DB::table('users')
+            ->where('id', $user->id)
+            ->update([
+                'is_admin' => (!empty($request->is_admin)) ? true : false,
+            ]);
+        $request->session()->flash('alert-success', 'User role changed successfully!');
+        return redirect('my-team');
+    }
 }

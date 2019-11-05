@@ -12,10 +12,17 @@
 */
 Auth::routes();
 
+//HomeController
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/change-password', 'HomeController@renderChangePasswordForm')->name('render-change-password-form');
 Route::post('/change-password', 'HomeController@processChangePasswordForm')->name('process-change-password-form');
+
+//MyTeamController
 Route::get('/my-team', 'MyTeamController@index')->name('my-team');
 Route::get('/invite-user', 'MyTeamController@renderInviteUserForm')->name('render-invite-user-form');
 Route::post('/invite-user', 'MyTeamController@processInviteUserForm')->name('process-invite-user-form');
+Route::post('/toogle-role', 'MyTeamController@processToogleRoleForm')->name('process-toogle-role-form');
+
+//TimeRecordController
+Route::get('/time-record', 'TimeRecordController@index')->name('time-record');
 Route::get('/time-record', 'TimeRecordController@index')->name('time-record');

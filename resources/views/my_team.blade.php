@@ -6,7 +6,6 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">My team</div>
-
                     <div class="card-body">
                         @if (Auth::user()->is_admin)
                             <div class="mb-4">
@@ -17,7 +16,6 @@
                                 </a>
                             </div>
                         @endif
-
                         <table class="table">
                             <thead>
                             <tr>
@@ -42,15 +40,32 @@
                                         @endif
                                     </td>
                                     @if (Auth::user()->is_admin)
-                                        <td>
-                                            <button type="button" class="btn btn-link" data-toggle="modal"
-                                                    data-target="#exampleModal">
-                                                Change role
-                                            </button>
-                                            <a href="">
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </a>
-                                        </td>
+                                        @if (Auth::user()->id === $user->id)
+                                            <td>
+                                                <button type="button" class="btn btn-link switch-role-modal-js"
+                                                        data-toggle="modal" data-target="#switchRoleModal"
+                                                        data-user-id="{{$user->id}}" data-is-admin="{{$user->is_admin}}"
+                                                        disabled>
+                                                    Change role
+                                                </button>
+                                                <a href="">
+                                                    <button type="button" class="btn btn-outline-danger" disabled>Delete
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        @else
+                                            <td>
+                                                <button type="button" class="btn btn-link switch-role-modal-js"
+                                                        data-toggle="modal" data-target="#switchRoleModal"
+                                                        data-user-id="{{$user->id}}"
+                                                        data-is-admin="{{$user->is_admin}}">
+                                                    Change role
+                                                </button>
+                                                <a href="">
+                                                    <button type="button" class="btn btn-outline-danger">Delete</button>
+                                                </a>
+                                            </td>
+                                        @endif
                                     @endif
                                 </tr>
                             @empty
@@ -66,24 +81,5 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('partials.switch_role_modal')
 @endsection

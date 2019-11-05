@@ -22,6 +22,7 @@ Route::get('/my-team', 'MyTeamController@index')->name('my-team');
 Route::get('/invite-user', 'MyTeamController@renderInviteUserForm')->name('render-invite-user-form');
 Route::post('/invite-user', 'MyTeamController@processInviteUserForm')->name('process-invite-user-form');
 Route::post('/toogle-role', 'MyTeamController@processToogleRoleForm')->name('process-toogle-role-form');
+Route::post('/remove-user', 'MyTeamController@processRemoveUserForm')->name('process-remove-user-form');
 
 //TimeRecordController
 Route::get('/time-record', 'TimeRecordController@index')->name('time-record');

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 class MyTeamController extends Controller
 {
@@ -35,12 +39,18 @@ class MyTeamController extends Controller
         return view('my_team', ['team' => $companions]);
     }
 
+    /**
+     * @return Factory|View
+     */
     public function renderInviteUserForm()
     {
         return view('invite_user');
     }
 
-
+    /**
+     * @param Request $request
+     * @return Factory|RedirectResponse|Redirector|View
+     */
     public function processInviteUserForm(Request $request)
     {
         $companyId = Auth::user()->company_id;
@@ -79,11 +89,15 @@ class MyTeamController extends Controller
                 'is_admin' => false,
                 'company_id' => $companyId,
             ]);
-        $request->session()->flash('alert-success', 'User added to company successfully!');
+        $request->session()->flash('alert-success', 'User ' . $invited->name . ' added to company successfully!');
 
         return redirect('my-team');
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
     public function processToogleRoleForm(Request $request)
     {
         $companyId = Auth::user()->company_id;
@@ -94,6 +108,11 @@ class MyTeamController extends Controller
 
         if (empty($user)) {
             $request->session()->flash('alert-danger', 'User not exist!');
+            return redirect('my-team');
+        }
+
+        if ((empty($request->is_admin) && !$user->is_admin) || ($request->is_admin !== null && $user->is_admin)) {
+            $request->session()->flash('alert-info', 'The user\'s role has not been changed');
             return redirect('my-team');
         }
 
@@ -108,6 +127,16 @@ class MyTeamController extends Controller
                 'is_admin' => (!empty($request->is_admin)) ? true : false,
             ]);
         $request->session()->flash('alert-success', 'User role changed successfully!');
+        return redirect('my-team');
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
+    public function processRemoveUserForm(Request $request)
+    {
+        $request->session()->flash('alert-info', 'DEBUG: ' . $request->user_id);
         return redirect('my-team');
     }
 }

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Exception;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -59,8 +61,8 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param array $data
-     * @return \App\User
-     * @throws \Exception
+     * @return User
+     * @throws Exception
      */
     protected function create(array $data)
     {
@@ -68,7 +70,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'link_hash' => Hash::make(base64_encode(random_bytes(10))),
+            'link_hash' => Str::random(15),
             'company_id' => null,
             'is_admin' => false
         ]);

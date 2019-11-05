@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\TimeRecord;
+use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class MyTeamController extends Controller
@@ -33,9 +35,7 @@ class MyTeamController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $companions = DB::table('users')
-            ->where('company_id', $user['company_id'])
-            ->get();
+        $companions = User::where('company_id', $user['company_id'])->get();
 
         return view('my_team', ['team' => $companions]);
     }
@@ -68,9 +68,7 @@ class MyTeamController extends Controller
             return view('invite_user')->withErrors($validator);
         }
 
-        $invited = DB::table('users')
-            ->where('link_hash', $request->link_hash)
-            ->first();
+        $invited = User::where('link_hash', $request->link_hash)->first();
 
         if (empty($invited)) {
             $validator->errors()->add('link_hash', 'Link hash not associated with any user');
@@ -84,12 +82,10 @@ class MyTeamController extends Controller
                 ->withErrors($validator);
         }
 
-        DB::table('users')
-            ->where('id', $invited->id)
-            ->update([
-                'is_admin' => false,
-                'company_id' => $companyId,
-            ]);
+        User::where('id', $invited->id)->update([
+            'is_admin' => false,
+            'company_id' => $companyId,
+        ]);
         $request->session()->flash('alert-success', 'User ' . $invited->name . ' added to company successfully!');
 
         return redirect('my-team');
@@ -103,9 +99,7 @@ class MyTeamController extends Controller
     {
         $companyId = Auth::user()->company_id;
 
-        $user = DB::table('users')
-            ->where('id', $request->user_id)
-            ->first();
+        $user = User::where('id', $request->user_id)->first();
 
         if (empty($user)) {
             $request->session()->flash('alert-danger', 'User not exist!');
@@ -122,11 +116,7 @@ class MyTeamController extends Controller
             return redirect('my-team');
         }
 
-        DB::table('users')
-            ->where('id', $user->id)
-            ->update([
-                'is_admin' => (!empty($request->is_admin)) ? true : false,
-            ]);
+        User::where('id', $user->id)->update(['is_admin' => (!empty($request->is_admin)) ? true : false]);
         $request->session()->flash('alert-success', 'User role changed successfully!');
         return redirect('my-team');
     }
@@ -134,14 +124,13 @@ class MyTeamController extends Controller
     /**
      * @param Request $request
      * @return RedirectResponse|Redirector
+     * @throws Exception
      */
     public function processRemoveUserForm(Request $request)
     {
         $companyId = Auth::user()->company_id;
 
-        $user = DB::table('users')
-            ->where('id', $request->user_id)
-            ->first();
+        $user = User::where('id', $request->user_id)->first();
 
         if (empty($user)) {
             $request->session()->flash('alert-danger', 'User not exist!');
@@ -153,12 +142,11 @@ class MyTeamController extends Controller
             return redirect('my-team');
         }
 
-        DB::table('users')
-            ->where('id', $user->id)
-            ->update([
-                'company_id' => null,
-                'is_admin' => false,
-            ]);
+        User::where('id', $user->id)->update([
+            'company_id' => null,
+            'is_admin' => false,
+            'link_hash' => Str::random(15),
+        ]);
 
         TimeRecord::where('user_id', $user->id)->delete();
         $request->session()->flash('alert-success', 'User removed from company successfully!');

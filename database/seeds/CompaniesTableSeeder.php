@@ -1,8 +1,7 @@
 <?php
 
+use App\Company;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class CompaniesTableSeeder extends Seeder
 {
@@ -13,8 +12,14 @@ class CompaniesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('companies')->insert([
-            'name' => 'default_company',
+        $this->createCompany('default_company');
+    }
+
+    private function createCompany($name)
+    {
+        Company::create([
+            'name' => $name,
         ]);
     }
+
 }

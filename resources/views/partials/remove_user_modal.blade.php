@@ -21,6 +21,9 @@
                                 erased</b>
                         </li>
                         <li>
+                            The user's <b>invitation hash will be regenerated</b>
+                        </li>
+                        <li>
                             The user can access the platform but is not connected to the company or keep time records
                         </li>
                     </ul>

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">My team</div>
                     <div class="card-body">
@@ -40,32 +40,25 @@
                                         @endif
                                     </td>
                                     @if (Auth::user()->is_admin)
-                                        @if (Auth::user()->id === $user->id)
-                                            <td>
-                                                <button type="button" class="btn btn-link switch-role-modal-js"
-                                                        data-toggle="modal" data-target="#switchRoleModal"
-                                                        data-user-id="{{$user->id}}" data-is-admin="{{$user->is_admin}}"
-                                                        disabled>
-                                                    Change role
-                                                </button>
-                                                <a href="">
-                                                    <button type="button" class="btn btn-outline-danger" disabled>Delete
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        @else
-                                            <td>
-                                                <button type="button" class="btn btn-link switch-role-modal-js"
-                                                        data-toggle="modal" data-target="#switchRoleModal"
-                                                        data-user-id="{{$user->id}}"
-                                                        data-is-admin="{{$user->is_admin}}">
-                                                    Change role
-                                                </button>
-                                                <a href="">
-                                                    <button type="button" class="btn btn-outline-danger">Delete</button>
-                                                </a>
-                                            </td>
-                                        @endif
+                                        <td>
+
+                                            <button type="button"
+                                                    class="btn btn-outline-secondary switch-role-modal-js btn-sm"
+                                                    data-toggle="modal" data-target="#switchRoleModal"
+                                                    data-user-id="{{$user->id}}" data-is-admin="{{$user->is_admin}}"
+                                                    @if (Auth::user()->id === $user->id) disabled @endif>
+                                                Change role
+                                            </button>
+
+                                            <button type="button"
+                                                    class="btn btn-outline-danger remove-user-modal-js btn-sm"
+                                                    data-toggle="modal" data-target="#removeUserModal"
+                                                    data-user-id="{{$user->id}}"
+                                                    @if (Auth::user()->id === $user->id) disabled @endif>
+                                                Remove from company
+                                            </button>
+
+                                        </td>
                                     @endif
                                 </tr>
                             @empty
@@ -82,4 +75,5 @@
     </div>
 
     @include('partials.switch_role_modal')
+    @include('partials.remove_user_modal')
 @endsection

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
@@ -40,11 +42,18 @@ class HomeController extends Controller
         return redirect()->route('time-record');
     }
 
+    /**
+     * @return Factory|View
+     */
     public function renderChangePasswordForm()
     {
         return view('auth.passwords.change_password');
     }
 
+    /**
+     * @param Request $request
+     * @return Factory|View
+     */
     public function processChangePasswordForm(Request $request)
     {
         $user = Auth::user();

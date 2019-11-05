@@ -16,7 +16,7 @@
                         <input class="form-check-input" type="checkbox" id="switch_role_modal_is_admin"
                                name="is_admin">
                         <label class="form-check-label" for="switch_role_modal_is_admin">
-                            {{ __('Is admin?') }}
+                            {{ __('Grant admin privileges?') }}
                         </label>
                     </div>
                 </div>

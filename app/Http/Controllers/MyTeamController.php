@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\TimeRecord;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -111,13 +112,13 @@ class MyTeamController extends Controller
             return redirect('my-team');
         }
 
-        if ((empty($request->is_admin) && !$user->is_admin) || ($request->is_admin !== null && $user->is_admin)) {
-            $request->session()->flash('alert-info', 'The user\'s role has not been changed');
+        if ($user->company_id !== $companyId) {
+            $request->session()->flash('alert-danger', 'User does not belong to your company!');
             return redirect('my-team');
         }
 
-        if ($user->company_id !== $companyId) {
-            $request->session()->flash('alert-danger', 'User does not belong to your company!');
+        if ((empty($request->is_admin) && !$user->is_admin) || ($request->is_admin !== null && $user->is_admin)) {
+            $request->session()->flash('alert-info', 'The user\'s role has not been changed');
             return redirect('my-team');
         }
 
@@ -136,7 +137,31 @@ class MyTeamController extends Controller
      */
     public function processRemoveUserForm(Request $request)
     {
-        $request->session()->flash('alert-info', 'DEBUG: ' . $request->user_id);
+        $companyId = Auth::user()->company_id;
+
+        $user = DB::table('users')
+            ->where('id', $request->user_id)
+            ->first();
+
+        if (empty($user)) {
+            $request->session()->flash('alert-danger', 'User not exist!');
+            return redirect('my-team');
+        }
+
+        if ($user->company_id !== $companyId) {
+            $request->session()->flash('alert-danger', 'User does not belong to your company!');
+            return redirect('my-team');
+        }
+
+        DB::table('users')
+            ->where('id', $user->id)
+            ->update([
+                'company_id' => null,
+                'is_admin' => false,
+            ]);
+
+        TimeRecord::where('user_id', $user->id)->delete();
+        $request->session()->flash('alert-success', 'User removed from company successfully!');
         return redirect('my-team');
     }
 }

@@ -28,3 +28,4 @@ Route::post('/remove-user', 'MyTeamController@processRemoveUserForm')->name('pro
 Route::get('/time-record', 'TimeRecordController@index')->name('time-record');
 Route::get('/create-time-record', 'TimeRecordController@renderCreateTimeRecordForm')->name('render-create-time-record-form');
 Route::post('/create-time-record', 'TimeRecordController@processCreateTimeRecordForm')->name('process-create-time-record-form');
+Route::post('/remove-time-record', 'TimeRecordController@processRemoveTimeRecordForm')->name('process-remove-time-record-form');

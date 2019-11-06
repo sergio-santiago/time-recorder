@@ -8,7 +8,9 @@ use DateTime;
 use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
@@ -144,5 +146,34 @@ class TimeRecordController extends Controller
         $timeDiff = date_diff(new DateTime($initTime), new DateTime($endTime));
 
         return json_encode(['hours' => $timeDiff->h, 'minutes' => $timeDiff->i]);
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
+    public function processRemoveTimeRecordForm(Request $request)
+    {
+        if (empty($request->modal_id)) {
+            $request->session()->flash('alert-danger', 'Error, bad request, try again...');
+            return redirect('time-record');
+        }
+
+        $timeRecord = TimeRecord::find($request->modal_id);
+
+        if (empty($timeRecord)) {
+            $request->session()->flash('alert-danger', 'Error, time record not exists, try again...');
+            return redirect('time-record');
+        }
+
+        if ($timeRecord->user_id !== Auth::user()->id) {
+            $request->session()->flash('alert-danger', 'The time record does not belong to you, try again...');
+            return redirect('time-record');
+        }
+
+        $timeRecord->delete();
+
+        $request->session()->flash('alert-success', 'Time record deleted successfully!');
+        return redirect('time-record');
     }
 }

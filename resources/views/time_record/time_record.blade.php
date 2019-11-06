@@ -46,9 +46,13 @@
                                         hours @if($record->interval_time->minutes != 0)
                                             and {{$record->interval_time->minutes}} minutes @endif
                                     </td>
-                                    <td><a href="">
-                                            <button type="button" class="btn btn-danger">Delete</button>
-                                        </a>
+                                    <td>
+                                        <button type="button"
+                                                class="btn btn-outline-danger remove-time-record-modal-js btn-sm"
+                                                data-toggle="modal" data-target="#removeTimeRecordModal"
+                                                data-time-record-id="{{$record->id}}">
+                                            Delete record
+                                        </button>
                                     </td>
                                 </tr>
                             @empty
@@ -63,4 +67,9 @@
             </div>
         </div>
     </div>
+    @include('partials.remove_time_record_modal')
+@endsection
+
+@section('js_adhoc')
+    <script src="{{ asset('js/init/removeTimeRecordModal.js') }}" defer></script>
 @endsection

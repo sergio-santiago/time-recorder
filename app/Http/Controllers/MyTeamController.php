@@ -37,7 +37,7 @@ class MyTeamController extends Controller
         $user = Auth::user();
         $companions = User::where('company_id', $user['company_id'])->get();
 
-        return view('my_team', ['team' => $companions]);
+        return view('my_team.my_team', ['team' => $companions]);
     }
 
     /**
@@ -45,7 +45,7 @@ class MyTeamController extends Controller
      */
     public function renderInviteUserForm()
     {
-        return view('invite_user');
+        return view('my_team.invite_user');
     }
 
     /**
@@ -65,20 +65,20 @@ class MyTeamController extends Controller
         );
 
         if ($validator->fails()) {
-            return view('invite_user')->withErrors($validator);
+            return view('my_team.invite_user')->withErrors($validator);
         }
 
         $invited = User::where('link_hash', $request->link_hash)->first();
 
         if (empty($invited)) {
             $validator->errors()->add('link_hash', 'Link hash not associated with any user');
-            return view('invite_user')
+            return view('my_team.invite_user')
                 ->withErrors($validator);
         }
 
         if ($invited->company_id !== null) {
             $validator->errors()->add('link_hash', 'The guest user is already associated with a company, you must leave before joining another');
-            return view('invite_user')
+            return view('my_team.invite_user')
                 ->withErrors($validator);
         }
 

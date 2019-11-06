@@ -33,3 +33,4 @@ const app = new Vue({
 
 require('./switchRoleModal');
 require('./removeUserModal');
+require('./testTime');

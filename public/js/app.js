@@ -49376,6 +49376,8 @@ __webpack_require__(/*! ./switchRoleModal */ "./resources/js/switchRoleModal.js"
 
 __webpack_require__(/*! ./removeUserModal */ "./resources/js/removeUserModal.js");
 
+__webpack_require__(/*! ./testTime */ "./resources/js/testTime.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -49521,6 +49523,17 @@ $('.switch-role-modal-js').on('click', function (event) {
   var isAdmin = button.data('is-admin');
   $('#switch_role_modal_is_admin').prop("checked", isAdmin);
 });
+
+/***/ }),
+
+/***/ "./resources/js/testTime.js":
+/*!**********************************!*\
+  !*** ./resources/js/testTime.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var input = document.getElementById('test-time');
 
 /***/ }),
 

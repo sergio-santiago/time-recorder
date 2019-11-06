@@ -14,7 +14,7 @@
                         <form method="POST" action="{{ route('process-create-time-record-form') }}">
                             @csrf
 
-
+                            <input type="text" id="test-time" name="test-time">
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">

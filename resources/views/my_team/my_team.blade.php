@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">My team</div>
+                    <div class="card-header">My team members</div>
                     <div class="card-body">
                         @if (Auth::user()->is_admin)
                             <div class="mb-4">

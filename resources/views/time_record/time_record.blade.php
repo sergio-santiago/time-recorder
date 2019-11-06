@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">Time record</div>
 
@@ -11,8 +11,8 @@
                         @if (Auth::user()->is_admin)
                             <div class="mb-4">
 
-                                <a href="">
-                                    <button type="button" class="btn btn-primary">New record</button>
+                                <a href="{{ @route('render-create-time-record-form') }}">
+                                    <button type="button" class="btn btn-primary">Create new record</button>
                                 </a>
                             </div>
                         @endif

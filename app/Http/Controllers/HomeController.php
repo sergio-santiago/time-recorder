@@ -32,7 +32,7 @@ class HomeController extends Controller
         $user = Auth::user();
 
         if ($user['company'] === null) {
-            return view('no_company', ['linkHash' => $user['link_hash']]);
+            return view('auth.no_company', ['linkHash' => $user['link_hash']]);
         }
 
         if ($user['is_admin']) {

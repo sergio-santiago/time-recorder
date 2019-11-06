@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Time record</div>
+                    <div class="card-header">Time records today</div>
 
                     <div class="card-body">
                         <div class="mb-4">

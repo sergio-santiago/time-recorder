@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\TimeRecord;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -36,8 +37,69 @@ class MyTeamController extends Controller
     {
         $user = Auth::user();
         $companions = User::where('company_id', $user['company_id'])->get();
+        $this->generateTotalIntervalForCompanions($companions);
 
         return view('my_team.my_team', ['team' => $companions]);
+    }
+
+    private function generateTotalIntervalForCompanions(&$companions)
+    {
+        foreach ($companions as $companion) {
+            $timeRecords = TimeRecord::where([
+                ['user_id', '=', $companion->id],
+                ['init_time', '>=', Carbon::today()->startOfDay()],
+                ['end_time', '<=', Carbon::today()->endOfDay()]
+            ])->get();
+            $this->decodeIntervalTimeFieldInTimeRecords($timeRecords);
+            $totalInterval = $this->calculateSumIntervalTimes($timeRecords);
+            $companion->totalIntervalToday = $totalInterval;
+        }
+        return;
+    }
+
+    /**
+     * @param $timeRecords
+     * @return mixed
+     */
+    private function decodeIntervalTimeFieldInTimeRecords(&$timeRecords)
+    {
+        foreach ($timeRecords as $timeRecord) {
+            $this->decodeIntervalTimeFieldInTimeRecord($timeRecord);
+        }
+        return;
+    }
+
+    /**
+     * @param $timeRecord
+     * @return mixed
+     */
+    private function decodeIntervalTimeFieldInTimeRecord(&$timeRecord)
+    {
+        $timeRecord->interval_time = json_decode($timeRecord->interval_time);
+        return;
+    }
+
+    /**
+     * @param $timeRecords
+     * @return array
+     */
+    private function calculateSumIntervalTimes($timeRecords)
+    {
+        $total = [
+            'hours' => 0,
+            'minutes' => 0,
+        ];
+
+        foreach ($timeRecords as $timeRecord) {
+            $total['hours'] += $timeRecord->interval_time->hours;
+            $total['minutes'] += $timeRecord->interval_time->minutes;
+            while ($total['minutes'] >= 60) {
+                $total['hours']++;
+                $total['minutes'] = $total['minutes'] - 60;
+            }
+        }
+
+        return $total;
     }
 
     /**

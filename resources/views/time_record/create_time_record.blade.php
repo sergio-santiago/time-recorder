@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <a href="{{ route('time-record') }}"><i class="fa fa-arrow-left mr-1"></i></a>
@@ -14,11 +14,52 @@
                         <form method="POST" action="{{ route('process-create-time-record-form') }}">
                             @csrf
 
-                            <input type="text" id="test-time" name="test-time">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Init time</h5>
+                                            <label for="init_time_input" class="card-subtitle mb-2 text-muted">
+                                                The start time of the effective working time is
+                                            </label>
+                                            <input type="text" id="init_time_input" name="init_time"
+                                                   class="card-subtitle mb-2 text-muted @error('init_time') is-invalid @enderror"
+                                                   style="border: none; cursor: default">
+                                            <div id="init_time_picker"></div>
+                                        </div>
+                                        @error('init_time')
+                                        <div class="card-footer text-danger">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
 
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-success">
+                                <div class="col-sm-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">End time</h5>
+                                            <label for="end_time_input" class="card-subtitle mb-2 text-muted">
+                                                The end time of the effective working time is
+                                            </label>
+                                            <input type="text" id="end_time_input" name="end_time"
+                                                   class="card-subtitle mb-2 text-muted"
+                                                   style="border: none; cursor: default">
+                                            <div id="end_time_picker"></div>
+                                        </div>
+                                        @error('end_time')
+                                        <div class="card-footer text-danger">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <div class="col-12 mt-5">
+                                    <button type="submit" class="btn btn-success btn-lg btn-block">
                                         {{ __('Create new time record') }}
                                     </button>
                                 </div>
@@ -30,4 +71,11 @@
             </div>
         </div>
     </div>
+@endsection
+@section('js_adhoc')
+    <script src="{{ asset('js/vendor/picker.min.js') }}" defer></script>
+    <script src="{{ asset('js/init/createTimeRecord.js') }}" defer></script>
+@endsection
+@section('css_adhoc')
+    <link href="{{ asset('css/vendor/picker.min.css') }}" rel="stylesheet">
 @endsection

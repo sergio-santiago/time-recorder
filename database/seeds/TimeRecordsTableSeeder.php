@@ -19,9 +19,11 @@ class TimeRecordsTableSeeder extends Seeder
 
     private function createTimeRecord($userId, $initTime, $endTime)
     {
+        $timeDiff = date_diff($initTime, $endTime);
         TimeRecord::create([
             'init_time' => $initTime,
             'end_time' => $endTime,
+            'interval_time' => json_encode(['hours' => $timeDiff->h, 'minutes' => $timeDiff->i]),
             'user_id' => $userId,
         ]);
     }

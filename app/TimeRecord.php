@@ -12,7 +12,7 @@ class TimeRecord extends Model
      * @var array
      */
     protected $fillable = [
-        'init_time', 'end_time', 'user_id',
+        'init_time', 'end_time', 'interval_time', 'user_id',
     ];
 
     /**

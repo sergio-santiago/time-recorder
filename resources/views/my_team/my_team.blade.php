@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">My team</div>
                     <div class="card-body">
@@ -22,6 +22,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Is admin</th>
+                                <th scope="col">Total effective work today</th>
                                 @if (Auth::user()->is_admin)
                                     <th scope="col">Actions</th>
                                 @endif
@@ -37,6 +38,14 @@
                                             <i class="fa fa-check"></i>
                                         @else
                                             <i class="fa fa-times"></i>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($user->totalIntervalToday['hours'] == 0 && $user->totalIntervalToday['minutes'] == 0)
+                                            <span class="badge badge-danger">None</span>
+                                        @else
+                                            <span class="badge badge-success">{{$user->totalIntervalToday['hours']}} hours @if($user->totalIntervalToday['minutes'] != 0)
+                                                    and {{$user->totalIntervalToday['minutes']}} minutes @endif</span>
                                         @endif
                                     </td>
                                     @if (Auth::user()->is_admin)
@@ -73,7 +82,11 @@
             </div>
         </div>
     </div>
-
     @include('partials.switch_role_modal')
     @include('partials.remove_user_modal')
+@endsection
+
+@section('js_adhoc')
+    <script src="{{ asset('js/init/switchRoleModal.js') }}" defer></script>
+    <script src="{{ asset('js/init/removeUserModal.js') }}" defer></script>
 @endsection

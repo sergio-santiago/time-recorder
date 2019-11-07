@@ -56,9 +56,13 @@
                                 </div>
                             </div>
 
+                            <div class="form-group mt-4">
+                                <label for="commentary">{{ __('What have you been doing during this time?') }}</label>
+                                <textarea class="form-control" rows="3" id="commentary" name="commentary"></textarea>
+                            </div>
 
                             <div class="form-group row">
-                                <div class="col-12 mt-5">
+                                <div class="col-12 mt-2">
                                     <button type="submit" class="btn btn-success btn-lg btn-block">
                                         {{ __('Create new time record') }}
                                     </button>

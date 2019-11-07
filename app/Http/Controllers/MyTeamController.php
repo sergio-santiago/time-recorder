@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
+use App\Http\Services\IntervalTimeService;
 use App\TimeRecord;
 use Carbon\Carbon;
 use Exception;
@@ -18,14 +20,18 @@ use Illuminate\View\View;
 
 class MyTeamController extends Controller
 {
+    /* @var IntervalTimeService */
+    private $intervalTimeService;
+
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param IntervalTimeService $intervalTimeService
      */
-    public function __construct()
+    public function __construct(IntervalTimeService $intervalTimeService)
     {
         $this->middleware('auth');
+        $this->intervalTimeService = $intervalTimeService;
     }
 
     /**
@@ -39,9 +45,17 @@ class MyTeamController extends Controller
         $companions = User::where('company_id', $user['company_id'])->get();
         $this->generateTotalIntervalForCompanions($companions);
 
-        return view('my_team.my_team', ['team' => $companions]);
+        $company = Company::find($user->company_id);
+        $company->total_interval_company = $this->intervalTimeService->calculateSumIntervalTimes($companions, function ($companion) {
+            return $companion->total_interval_user;
+        });
+
+        return view('my_team.my_team', ['team' => $companions, 'company' => $company]);
     }
 
+    /**
+     * @param $companions
+     */
     private function generateTotalIntervalForCompanions(&$companions)
     {
         foreach ($companions as $companion) {
@@ -50,56 +64,13 @@ class MyTeamController extends Controller
                 ['init_time', '>=', Carbon::today()->startOfDay()],
                 ['end_time', '<=', Carbon::today()->endOfDay()]
             ])->get();
-            $this->decodeIntervalTimeFieldInTimeRecords($timeRecords);
-            $totalInterval = $this->calculateSumIntervalTimes($timeRecords);
-            $companion->totalIntervalToday = $totalInterval;
+            $this->intervalTimeService->decodeIntervalTimeField($timeRecords);
+
+            $companion->total_interval_user = $this->intervalTimeService->calculateSumIntervalTimes($timeRecords, function ($timeRecord) {
+                return $timeRecord->interval_time;
+            });
         }
         return;
-    }
-
-    /**
-     * @param $timeRecords
-     * @return mixed
-     */
-    private function decodeIntervalTimeFieldInTimeRecords(&$timeRecords)
-    {
-        foreach ($timeRecords as $timeRecord) {
-            $this->decodeIntervalTimeFieldInTimeRecord($timeRecord);
-        }
-        return;
-    }
-
-    /**
-     * @param $timeRecord
-     * @return mixed
-     */
-    private function decodeIntervalTimeFieldInTimeRecord(&$timeRecord)
-    {
-        $timeRecord->interval_time = json_decode($timeRecord->interval_time);
-        return;
-    }
-
-    /**
-     * @param $timeRecords
-     * @return array
-     */
-    private function calculateSumIntervalTimes($timeRecords)
-    {
-        $total = [
-            'hours' => 0,
-            'minutes' => 0,
-        ];
-
-        foreach ($timeRecords as $timeRecord) {
-            $total['hours'] += $timeRecord->interval_time->hours;
-            $total['minutes'] += $timeRecord->interval_time->minutes;
-            while ($total['minutes'] >= 60) {
-                $total['hours']++;
-                $total['minutes'] = $total['minutes'] - 60;
-            }
-        }
-
-        return $total;
     }
 
     /**

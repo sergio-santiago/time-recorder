@@ -7,16 +7,40 @@
                 <div class="card">
                     <div class="card-header">My team members</div>
                     <div class="card-body">
-                        @if (Auth::user()->is_admin)
-                            <div class="mb-4">
+                        <div class="mb-4">
+                            @if (Auth::user()->is_admin)
                                 <a href="{{ route('render-invite-user-form') }}">
                                     <button type="button" class="btn btn-primary">
                                         Invite new user
                                     </button>
                                 </a>
-                            </div>
-                        @endif
-                        <table class="table">
+                                <div class="float-right">
+                                    <span>Total team work time today</span>
+                                    <br>
+                                    @if($company->total_interval_company->hours == 0 && $company->total_interval_company->minutes == 0)
+                                        <span class="badge badge-danger float-right">None</span>
+                                    @else
+                                        <span class="badge badge-success float-right">
+                                        {{$company->total_interval_company->hours}} hours @if($company->total_interval_company->minutes != 0)
+                                                and {{$company->total_interval_company->minutes}} minutes @endif
+                                    </span>
+                                    @endif
+                                </div>
+                            @else
+                                <div>
+                                    <span>Total team work time today</span>
+                                    @if($company->total_interval_company->hours == 0 && $company->total_interval_company->minutes == 0)
+                                        <span class="badge badge-danger ml-2">None</span>
+                                    @else
+                                        <span class="badge badge-success ml-2">
+                                        {{$company->total_interval_company->hours}} hours @if($company->total_interval_company->minutes != 0)
+                                                and {{$company->total_interval_company->minutes}} minutes @endif
+                                    </span>
+                                    @endif
+                                </div>
+                            @endif
+                        </div>
+                        <table class="table" id="my_team_table">
                             <thead>
                             <tr>
                                 <th scope="col">Name</th>
@@ -41,11 +65,11 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if($user->totalIntervalToday['hours'] == 0 && $user->totalIntervalToday['minutes'] == 0)
+                                        @if($user->total_interval_user->hours == 0 && $user->total_interval_user->minutes == 0)
                                             <span class="badge badge-danger">None</span>
                                         @else
-                                            <span class="badge badge-success">{{$user->totalIntervalToday['hours']}} hours @if($user->totalIntervalToday['minutes'] != 0)
-                                                    and {{$user->totalIntervalToday['minutes']}} minutes @endif</span>
+                                            <span class="badge badge-success">{{$user->total_interval_user->hours}} hours @if($user->total_interval_user->minutes != 0)
+                                                    and {{$user->total_interval_user->minutes}} minutes @endif</span>
                                         @endif
                                     </td>
                                     @if (Auth::user()->is_admin)
@@ -87,6 +111,11 @@
 @endsection
 
 @section('js_adhoc')
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js" defer></script>
     <script src="{{ asset('js/init/switchRoleModal.js') }}" defer></script>
     <script src="{{ asset('js/init/removeUserModal.js') }}" defer></script>
+    <script src="{{ asset('js/init/myTeamDataTables.js') }}" defer></script>
+@endsection
+@section('css_adhoc')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
 @endsection

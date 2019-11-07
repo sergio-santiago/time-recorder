@@ -13,6 +13,7 @@ class CompaniesTableSeeder extends Seeder
     public function run()
     {
         $this->createCompany('default_company');
+        $this->createCompany('alternative_company');
     }
 
     /**

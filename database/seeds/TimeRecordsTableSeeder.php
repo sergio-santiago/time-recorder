@@ -22,9 +22,19 @@ class TimeRecordsTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->createTimeRecord(1, new DateTime('-3 hours'), new DateTime('-2 hours'));
-        $this->createTimeRecord(1, new DateTime('-1 hours'), new DateTime('+2 hours'));
-        $this->createTimeRecord(1, new DateTime('+3 hours'), new DateTime('+5 hours'));
+        for ($i = 0; $i < 15; $i++) {
+            $this->createTimeRecord(1, new DateTime('-3 hours'), new DateTime('-2 hours'));
+            $this->createTimeRecord(2, new DateTime('-1 hours'), new DateTime('+2 hours'));
+            $this->createTimeRecord(4, new DateTime('+3 hours'), new DateTime('+5 hours'));
+
+            $this->createTimeRecord(2, new DateTime('-3 hours'), new DateTime('-2 hours'));
+            $this->createTimeRecord(5, new DateTime('-1 hours'), new DateTime('+2 hours'));
+            $this->createTimeRecord(1, new DateTime('+3 hours'), new DateTime('+5 hours'));
+
+            $this->createTimeRecord(6, new DateTime('-3 hours'), new DateTime('-2 hours'));
+            $this->createTimeRecord(2, new DateTime('-1 hours'), new DateTime('+2 hours'));
+            $this->createTimeRecord(1, new DateTime('+3 hours'), new DateTime('+5 hours'));
+        }
     }
 
     /**

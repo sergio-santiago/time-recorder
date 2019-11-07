@@ -15,7 +15,13 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $this->createUser('default_user_admin', 1, true);
-        $this->createUser('default_user', 1, false);
+        $this->createUser('default_user_admin_alternative', 2, true);
+
+        $this->createUser("default_user", 1, false);
+        for ($i = 0; $i < 15; $i++) {
+            $this->createUser("default_user_$i", 1, false);
+        }
+
         $this->createUser('default_user_orphan', null, false);
     }
 

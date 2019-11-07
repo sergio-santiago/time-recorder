@@ -39,7 +39,7 @@
                 @if (Auth::check() and Auth::user()->company_id)
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('time-record') }}">{{ __('Time record') }}</a>
+                            <a class="nav-link" href="{{ route('time-record') }}">{{ __('My time records') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('my-team') }}">{{ __('My team') }}</a>

@@ -106,6 +106,7 @@ class TimeRecordController extends Controller
             'end_time' => new Carbon($request->end_time),
             'interval_time' => $intervalTime,
             'user_id' => Auth::user()->id,
+            'commentary' => $request->commentary,
         ]);
         $request->session()->flash('alert-success', 'New time record created successfully!');
 

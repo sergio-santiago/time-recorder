@@ -50,6 +50,7 @@ class TimeRecordsTableSeeder extends Seeder
             'end_time' => $endTime,
             'interval_time' => $this->intervalTimeService->calculateEncodedTimeRecordIntervalTime($initTime, $endTime),
             'user_id' => $userId,
+            'commentary' => "Some commentary about this time record"
         ]);
     }
 }

@@ -18,6 +18,7 @@ class CreateTimeRecordsTable extends Migration
             $table->dateTime('init_time');
             $table->dateTime('end_time');
             $table->json('interval_time');
+            $table->text('commentary')->nullable();
             $table->timestamps();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')

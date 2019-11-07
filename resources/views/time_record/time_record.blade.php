@@ -33,6 +33,7 @@
                                 <th scope="col">Init time</th>
                                 <th scope="col">End time</th>
                                 <th scope="col">Interval time</th>
+                                <th scope="col">Commentary</th>
                                 <th scope="col">Actions</th>
                             </tr>
                             </thead>
@@ -45,6 +46,18 @@
                                         {{$record->interval_time->hours}}
                                         hours @if($record->interval_time->minutes != 0)
                                             and {{$record->interval_time->minutes}} minutes @endif
+                                    </td>
+                                    <td>
+                                        @if($record->commentary)
+                                            <button type="button"
+                                                    class="btn btn-outline-secondary show-time-record-commentary-modal-js btn-sm"
+                                                    data-toggle="modal" data-target="#showTimeRecordCommentaryModal"
+                                                    data-comment="{{$record->commentary}}">
+                                                Show comment
+                                            </button>
+                                        @else
+                                            <span class="badge badge-danger">None</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <button type="button"
@@ -68,11 +81,14 @@
         </div>
     </div>
     @include('partials.remove_time_record_modal')
+    @include('partials.show_time_record_commentary_modal')
+
 @endsection
 
 @section('js_adhoc')
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js" defer></script>
     <script src="{{ asset('js/init/removeTimeRecordModal.js') }}" defer></script>
+    <script src="{{ asset('js/init/showTimeRecordCommentaryModal.js') }}" defer></script>
     <script src="{{ asset('js/init/timeRecordDataTables.js') }}" defer></script>
 @endsection
 @section('css_adhoc')

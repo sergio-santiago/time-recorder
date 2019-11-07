@@ -15,6 +15,9 @@ class CompaniesTableSeeder extends Seeder
         $this->createCompany('default_company');
     }
 
+    /**
+     * @param $name
+     */
     private function createCompany($name)
     {
         Company::create([

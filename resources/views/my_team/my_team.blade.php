@@ -11,6 +11,7 @@
                             @if (Auth::user()->is_admin)
                                 <a href="{{ route('render-invite-user-form') }}">
                                     <button type="button" class="btn btn-primary">
+                                        <i class="fa fa-user-plus mr-1"></i>
                                         Invite new user
                                     </button>
                                 </a>

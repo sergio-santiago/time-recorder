@@ -11,7 +11,7 @@
                         <div class="mb-4">
                             <a href="{{ @route('render-create-time-record-form') }}">
                                 <button type="button" class="btn btn-primary">
-                                    Create new record
+                                    <i class="fa fa-clock-o mr-1"></i>Create new record
                                 </button>
                             </a>
                             <div class="float-right">

@@ -86,7 +86,7 @@
 @endsection
 
 @section('js_adhoc')
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js" defer></script>
+    <script src="{{ asset('js/vendor/datatables.min.js') }}" defer></script>
     <script src="{{ asset('js/init/removeTimeRecordModal.js') }}" defer></script>
     <script src="{{ asset('js/init/showTimeRecordCommentaryModal.js') }}" defer></script>
     <script src="{{ asset('js/init/timeRecordDataTables.js') }}" defer></script>

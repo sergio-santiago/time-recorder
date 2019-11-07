@@ -17,17 +17,17 @@
                             <div class="float-right">
                                 <span>Total effective work today</span>
                                 <br>
-                                @if($totalInterval['hours'] == 0 && $totalInterval['minutes'] == 0)
+                                @if($user->total_interval_user->hours == 0 && $user->total_interval_user->minutes == 0)
                                     <span class="badge badge-danger float-right">None</span>
                                 @else
                                     <span class="badge badge-success float-right">
-                                        {{$totalInterval['hours']}} hours @if($totalInterval['minutes'] != 0)
-                                            and {{$totalInterval['minutes']}} minutes @endif
+                                        {{$user->total_interval_user->hours}} hours @if($user->total_interval_user->minutes != 0)
+                                            and {{$user->total_interval_user->minutes}} minutes @endif
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <table class="table">
+                        <table class="table" id="time_record_table">
                             <thead>
                             <tr>
                                 <th scope="col">Init time</th>
@@ -71,5 +71,10 @@
 @endsection
 
 @section('js_adhoc')
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js" defer></script>
     <script src="{{ asset('js/init/removeTimeRecordModal.js') }}" defer></script>
+    <script src="{{ asset('js/init/timeRecordDataTables.js') }}" defer></script>
+@endsection
+@section('css_adhoc')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
 @endsection

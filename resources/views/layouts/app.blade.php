@@ -39,10 +39,12 @@
                 @if (Auth::check() and Auth::user()->company_id)
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('time-record') }}">{{ __('My time records') }}</a>
+                            <a class="nav-link" href="{{ route('time-record') }}"><i
+                                    class="fa fa-history mr-1"></i>{{ __('My time records') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('my-team') }}">{{ __('My team') }}</a>
+                            <a class="nav-link" href="{{ route('my-team') }}"><i
+                                    class="fa fa-users mr-1"></i>{{ __('My team') }}</a>
                         </li>
                     </ul>
             @endif
@@ -63,18 +65,19 @@
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                <i class="fa fa-user-circle mr-1"></i>{{ Auth::user()->name }} <span
+                                    class="caret"></span>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('render-change-password-form') }}">
-                                    {{ __('Change password') }}
+                                    <i class="fa fa-key mr-1"></i>{{ __('Change password') }}
                                 </a>
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    <i class="fa fa-times-circle mr-1"></i>{{ __('Logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"

@@ -4,7 +4,7 @@ $(document).ready(function () {
             "columnDefs": [
                 {
                     "orderable": false,
-                    "targets": [3, 4]
+                    "targets": [4]
                 }
             ]
         }

@@ -10,6 +10,10 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="form-group">
+                    <label for="show_time_record_commentary_render" style="display: none"></label>
+                    <textarea class="form-control" rows="6" id="show_time_record_commentary_render" disabled></textarea>
+                </div>
                 <div id="show_time_record_commentary_render"></div>
             </div>
             <div class="modal-footer">

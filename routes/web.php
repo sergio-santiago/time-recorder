@@ -29,3 +29,7 @@ Route::get('/time-record', 'TimeRecordController@index')->name('time-record');
 Route::get('/create-time-record', 'TimeRecordController@renderCreateTimeRecordForm')->name('render-create-time-record-form');
 Route::post('/create-time-record', 'TimeRecordController@processCreateTimeRecordForm')->name('process-create-time-record-form');
 Route::post('/remove-time-record', 'TimeRecordController@processRemoveTimeRecordForm')->name('process-remove-time-record-form');
+
+//SearchTimeRecordsController
+Route::get('/search-time-records', 'SearchTimeRecordsController@renderSearchTimeRecordsForm')->name('render-search-time-records-form');
+Route::post('/search-time-records', 'SearchTimeRecordsController@processSearchTimeRecordsForm')->name('process-search-time-records-form');

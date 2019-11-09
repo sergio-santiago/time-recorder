@@ -43,9 +43,10 @@
                                     <td>{{\Carbon\Carbon::parse($record->init_time)->format('H:i')}}</td>
                                     <td>{{\Carbon\Carbon::parse($record->end_time)->format('H:i')}}</td>
                                     <td>
-                                        {{$record->interval_time->hours}}
-                                        hours @if($record->interval_time->minutes != 0)
-                                            and {{$record->interval_time->minutes}} minutes @endif
+                                        {{$record->interval_time->hours}} hours
+                                        @if($record->interval_time->minutes != 0)
+                                            and {{$record->interval_time->minutes}} minutes
+                                        @endif
                                     </td>
                                     <td>
                                         @if($record->commentary)

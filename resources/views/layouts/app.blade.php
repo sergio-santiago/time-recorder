@@ -46,6 +46,12 @@
                             <a class="nav-link" href="{{ route('my-team') }}"><i
                                     class="fa fa-users mr-1"></i>{{ __('My team') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('render-search-time-records-form')}}">
+                                <i class="fa fa-search mr-1"></i>
+                                {{ __('Search time records') }}
+                            </a>
+                        </li>
                     </ul>
             @endif
 

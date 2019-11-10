@@ -112,11 +112,11 @@
 @endsection
 
 @section('js_adhoc')
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js" defer></script>
+    <script src="{{ asset('js/vendor/datatables.min.js') }}" defer></script>
     <script src="{{ asset('js/init/switchRoleModal.js') }}" defer></script>
     <script src="{{ asset('js/init/removeUserModal.js') }}" defer></script>
     <script src="{{ asset('js/init/myTeamDataTables.js') }}" defer></script>
 @endsection
 @section('css_adhoc')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
+    <link href="{{ asset('css/vendor/datatables.min.css') }}" rel="stylesheet">
 @endsection

@@ -94,6 +94,17 @@
                                 </tr>
                             @endforeach
                             </tbody>
+                            <tfoot>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Is admin</th>
+                                <th scope="col">Total effective work today</th>
+                                @if (Auth::user()->is_admin)
+                                    <th scope="col">Actions</th>
+                                @endif
+                            </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

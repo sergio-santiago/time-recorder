@@ -71,7 +71,11 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3"><h4>No records</h4></td>
+                                    <td><h4>No records</h4></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             @endforelse
                             </tbody>

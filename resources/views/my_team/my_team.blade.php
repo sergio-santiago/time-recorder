@@ -54,7 +54,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse($team as $user)
+                            @foreach($team as $user)
                                 <tr>
                                     <th scope="row">{{$user->name}}</th>
                                     <td>{{$user->email}}</td>
@@ -75,7 +75,6 @@
                                     </td>
                                     @if (Auth::user()->is_admin)
                                         <td>
-
                                             <button type="button"
                                                     class="btn btn-outline-secondary switch-role-modal-js btn-sm"
                                                     data-toggle="modal" data-target="#switchRoleModal"
@@ -83,7 +82,6 @@
                                                     @if (Auth::user()->id === $user->id) disabled @endif>
                                                 Change role
                                             </button>
-
                                             <button type="button"
                                                     class="btn btn-outline-danger remove-user-modal-js btn-sm"
                                                     data-toggle="modal" data-target="#removeUserModal"
@@ -91,15 +89,10 @@
                                                     @if (Auth::user()->id === $user->id) disabled @endif>
                                                 Remove from company
                                             </button>
-
                                         </td>
                                     @endif
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="3"><h4>No team members yet</h4></td>
-                                </tr>
-                            @endforelse
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

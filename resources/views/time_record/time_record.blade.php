@@ -71,7 +71,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3"><h4>No records yet</h4></td>
+                                    <td colspan="3"><h4>No records</h4></td>
                                 </tr>
                             @endforelse
                             </tbody>
@@ -93,5 +93,5 @@
     <script src="{{ asset('js/init/timeRecordDataTables.js') }}" defer></script>
 @endsection
 @section('css_adhoc')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
+    <link href="{{ asset('css/vendor/datatables.min.css') }}" rel="stylesheet">
 @endsection

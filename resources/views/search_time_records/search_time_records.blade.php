@@ -89,6 +89,15 @@
                                     </tr>
                                 @endforelse
                                 </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th scope="col">Owner</th>
+                                    <th scope="col">Init time</th>
+                                    <th scope="col">End time</th>
+                                    <th scope="col">Interval time</th>
+                                    <th scope="col">Commentary</th>
+                                </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

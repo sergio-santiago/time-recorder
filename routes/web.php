@@ -18,18 +18,18 @@ Route::get('/change-password', 'HomeController@renderChangePasswordForm')->name(
 Route::post('/change-password', 'HomeController@processChangePasswordForm')->name('process-change-password-form');
 
 //MyTeamController
-Route::get('/my-team', 'MyTeamController@index')->name('my-team');
-Route::get('/invite-user', 'MyTeamController@renderInviteUserForm')->name('render-invite-user-form');
-Route::post('/invite-user', 'MyTeamController@processInviteUserForm')->name('process-invite-user-form');
-Route::post('/toogle-role', 'MyTeamController@processToogleRoleForm')->name('process-toogle-role-form');
-Route::post('/remove-user', 'MyTeamController@processRemoveUserForm')->name('process-remove-user-form');
+Route::get('/my-team', 'MyTeamController@index')->name('my-team')->middleware('hasCompany');
+Route::get('/invite-user', 'MyTeamController@renderInviteUserForm')->name('render-invite-user-form')->middleware('isAdmin', 'hasCompany');
+Route::post('/invite-user', 'MyTeamController@processInviteUserForm')->name('process-invite-user-form')->middleware('isAdmin', 'hasCompany');
+Route::post('/toogle-role', 'MyTeamController@processToogleRoleForm')->name('process-toogle-role-form')->middleware('isAdmin', 'hasCompany');
+Route::post('/remove-user', 'MyTeamController@processRemoveUserForm')->name('process-remove-user-form')->middleware('isAdmin', 'hasCompany');
 
 //TimeRecordController
-Route::get('/time-record', 'TimeRecordController@index')->name('time-record');
-Route::get('/create-time-record', 'TimeRecordController@renderCreateTimeRecordForm')->name('render-create-time-record-form');
-Route::post('/create-time-record', 'TimeRecordController@processCreateTimeRecordForm')->name('process-create-time-record-form');
-Route::post('/remove-time-record', 'TimeRecordController@processRemoveTimeRecordForm')->name('process-remove-time-record-form');
+Route::get('/time-record', 'TimeRecordController@index')->name('time-record')->middleware('hasCompany');
+Route::get('/create-time-record', 'TimeRecordController@renderCreateTimeRecordForm')->name('render-create-time-record-form')->middleware('hasCompany');
+Route::post('/create-time-record', 'TimeRecordController@processCreateTimeRecordForm')->name('process-create-time-record-form')->middleware('hasCompany');
+Route::post('/remove-time-record', 'TimeRecordController@processRemoveTimeRecordForm')->name('process-remove-time-record-form')->middleware('hasCompany');
 
 //SearchTimeRecordsController
-Route::get('/search-time-records', 'SearchTimeRecordsController@renderSearchTimeRecordsForm')->name('render-search-time-records-form');
-Route::post('/search-time-records', 'SearchTimeRecordsController@processSearchTimeRecordsForm')->name('process-search-time-records-form');
+Route::get('/search-time-records', 'SearchTimeRecordsController@renderSearchTimeRecordsForm')->name('render-search-time-records-form')->middleware('hasCompany');
+Route::post('/search-time-records', 'SearchTimeRecordsController@processSearchTimeRecordsForm')->name('process-search-time-records-form')->middleware('hasCompany');

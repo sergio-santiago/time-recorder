@@ -1,4 +1,6 @@
 # time-recorder
+`php artisan register:company`
+
 `docker-compose up -d`
 
 `php artisan serve`

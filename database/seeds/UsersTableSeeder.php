@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->createUser('Sergio Santiago', 'sergiosantiago@gmail.com', 1, true);
+        $this->createUser('Sergio Santiago', 'sersanhen@gmail.com', 1, true);
         $this->createUser('Carlos Hernandez', 'carloshernandez@gmail.com', 2, true);
         $this->createUser('Pedro Gonzalez', 'pedrogonzalez@gmail.com', 1, false);
         for ($i = 0; $i < 15; $i++) {

@@ -3,7 +3,7 @@
 
 `docker-compose up -d`
 
-`php artisan serve`
+`sudo php artisan serve --port=80`
 
 `docker-compose exec mysql mysql -prootpass time_recorder`
 

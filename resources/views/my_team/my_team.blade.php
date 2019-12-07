@@ -50,6 +50,8 @@
                                 <th scope="col">Total effective work today</th>
                                 @if (Auth::user()->is_admin)
                                     <th scope="col">Actions</th>
+                                @else
+                                    <th></th>
                                 @endif
                             </tr>
                             </thead>
@@ -90,6 +92,8 @@
                                                 Remove from company
                                             </button>
                                         </td>
+                                    @else
+                                        <td></td>
                                     @endif
                                 </tr>
                             @endforeach
@@ -102,6 +106,8 @@
                                 <th scope="col">Total effective work today</th>
                                 @if (Auth::user()->is_admin)
                                     <th scope="col">Actions</th>
+                                @else
+                                    <th></th>
                                 @endif
                             </tr>
                             </tfoot>

@@ -30,7 +30,11 @@
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 @if (Auth::user())
-                    {{ Auth::user()->company->name }}
+                    @if (Auth::user()->company)
+                        {{ Auth::user()->company->name }}
+                    @else
+                        Time Recorder
+                    @endif
                 @else
                     Time Recorder
                 @endif

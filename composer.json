@@ -1,12 +1,20 @@
 {
-    "name": "laravel/laravel",
+    "name": "sergio-santiago/time-recorder",
+    "description": "Time tracking system for effective working hours (PHP, Laravel 5 and MySQL)",
     "type": "project",
-    "description": "The Laravel Framework.",
     "keywords": [
-        "framework",
-        "laravel"
+        "time-tracking",
+        "timesheet",
+        "laravel",
+        "php"
     ],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergio Santiago Henares",
+            "email": "sersanhen@gmail.com"
+        }
+    ],
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
